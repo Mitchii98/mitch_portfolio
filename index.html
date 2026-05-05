@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mitch | Portfolio</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto;
+  background: #0a0a0a;
+  color: #e5e5e5;
+}
+
+/* NAV */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  background: rgba(10,10,10,0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #222;
+}
+
+nav a {
+  color: #aaa;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: white;
+}
+
+/* HERO */
+.hero {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  color: #999;
+  max-width: 600px;
+}
+
+.btn {
+  margin-top: 20px;
+  padding: 12px 18px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: white;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: white;
+  color: black;
+}
+
+/* SECTIONS */
+section {
+  max-width: 900px;
+  margin: auto;
+  padding: 60px 20px;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+/* PROJECTS */
+.project {
+  padding: 20px;
+  border-left: 2px solid #333;
+  margin-bottom: 20px;
+}
+
+.project:hover {
+  border-left: 2px solid white;
+}
+
+/* SKILLS */
+.skills span {
+  display: inline-block;
+  margin: 5px;
+  padding: 6px 10px;
+  border: 1px solid #333;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <a href="#about">About</a>
+  <a href="#projects">Projects</a>
+  <a href="#skills">Skills</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<div class="hero">
+  <h1>Mitch</h1>
+  <p>Automation Engineer • Simulation Specialist • Excel VBA Developer</p>
+
+  <a class="btn" href="resume.pdf" download>Download Resume</a>
+</div>
+
+<section id="about">
+  <h2>About</h2>
+  <p>
+    I build automation systems, engineering simulations, and data-driven tools that improve efficiency and reduce manual work.
+  </p>
+</section>
+
+<section id="projects">
+  <h2>Projects</h2>
+
+  <div class="project">
+    <h3>Excel Automation System</h3>
+    <p>Automated reporting and email workflows using VBA.</p>
+  </div>
+
+  <div class="project">
+    <h3>Job Tracking Dashboard</h3>
+    <p>Dynamic system for workload monitoring and reporting.</p>
+  </div>
+
+  <div class="project">
+    <h3>ABAQUS Simulation Optimization</h3>
+    <p>Mechanical stress analysis and performance improvement study.</p>
+  </div>
+
+  <div class="project">
+    <h3>HyperMesh Automation</h3>
+    <p>TCL-based automation for meshing and weld creation.</p>
+  </div>
+
+</section>
+
+<section id="skills">
+  <h2>Skills</h2>
+  <div class="skills">
+    <span>Excel VBA</span>
+    <span>Automation</span>
+    <span>ABAQUS</span>
+    <span>HyperMesh</span>
+    <span>TCL Scripting</span>
+    <span>Data Analysis</span>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p>Email: your@email.com</p>
+</section>
+
+<footer>
+  © 2026 Mitch
+</footer>
+
+</body>
+</html>
