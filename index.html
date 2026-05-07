@@ -1,29 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mitch | Portfolio</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mitch | Cinematic Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-body {
+:root {
+  --bg: #050816;
+  --text: #ffffff;
+  --accent: #00d4ff;
+}
+
+* {
   margin: 0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto;
-  background: #0a0a0a;
-  color: #e5e5e5;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* 🌌 AAA CINEMATIC BACKGROUND */
+.bg-glow {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 20%, rgba(0,212,255,0.18), transparent 40%),
+              radial-gradient(circle at 80% 70%, rgba(0,120,255,0.15), transparent 45%),
+              radial-gradient(circle at 50% 50%, rgba(0,255,200,0.08), transparent 60%);
+  animation: bgMove 12s ease-in-out infinite alternate;
+  z-index: -2;
+  filter: blur(10px);
+}
+
+@keyframes bgMove {
+  0% { transform: scale(1) translate(0,0); }
+  100% { transform: scale(1.2) translate(-20px, 20px); }
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 
 /* NAV */
 nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
   display: flex;
   justify-content: center;
-  gap: 30px;
-  padding: 20px;
-  position: sticky;
-  top: 0;
-  background: rgba(10,10,10,0.8);
+  gap: 20px;
+  padding: 15px;
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid #222;
+  background: rgba(0,0,0,0.3);
+  z-index: 1000;
 }
 
 nav a {
@@ -31,13 +71,9 @@ nav a {
   text-decoration: none;
 }
 
-nav a:hover {
-  color: white;
-}
-
 /* HERO */
-.hero {
-  height: 80vh;
+header {
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -46,140 +82,685 @@ nav a:hover {
   padding: 20px;
 }
 
-.hero h1 {
-  font-size: 3.5rem;
+.profile {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent);
+  box-shadow: 0 0 25px rgba(0,212,255,0.4);
+  margin-bottom: 20px;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+.glow {
+  font-size: 3rem;
+  text-shadow: 0 0 20px var(--accent);
+  opacity: 0;
+  animation: fadeIn 1.5s ease forwards;
   margin-bottom: 10px;
 }
 
-.hero p {
-  color: #999;
-  max-width: 600px;
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.type {
+  font-size: 1.05rem;
+  min-height: 25px;
+  margin-bottom: 10px;
+}
+
+.role {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  height: 20px;
+  transition: 0.5s;
+}
+
+.line {
+  width: 200px;
+  height: 2px;
+  background: var(--accent);
+  margin: 15px 0;
 }
 
 .btn {
   margin-top: 20px;
-  padding: 12px 18px;
-  border: 1px solid #444;
-  border-radius: 8px;
-  color: white;
+  padding: 12px 20px;
+  background: var(--accent);
+  color: #000;
+  border-radius: 10px;
   text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
 }
 
 .btn:hover {
-  background: white;
-  color: black;
+  transform: scale(1.05);
 }
 
 /* SECTIONS */
 section {
   max-width: 900px;
   margin: auto;
-  padding: 60px 20px;
+  padding: 80px 20px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 1s;
 }
 
-h2 {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
+section.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* PROJECTS */
-.project {
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 20px;
+}
+
+/* CARD */
+.card {
+  background: rgba(255,255,255,0.05);
   padding: 20px;
-  border-left: 2px solid #333;
-  margin-bottom: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  transition: 0.3s;
 }
 
-.project:hover {
-  border-left: 2px solid white;
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px var(--accent);
 }
 
 /* SKILLS */
-.skills span {
-  display: inline-block;
-  margin: 5px;
-  padding: 6px 10px;
-  border: 1px solid #333;
-  border-radius: 20px;
-  font-size: 14px;
+.skill-top{
+  display:flex;
+  justify-content:space-between;
 }
 
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 40px;
-  color: #666;
+.bar{
+  height:8px;
+  background:#222;
+  border-radius:10px;
+  margin-top:8px;
 }
+
+.fill{
+  height:100%;
+  width:0;
+  background:var(--accent);
+  border-radius:10px;
+  transition:2s;
+}
+
+/* ADD SPACE ONLY IN SKILLS SECTION */
+#skills .card {
+  margin-bottom: 20px;
+}
+
+#skills .card:last-child {
+  margin-bottom: 0;
+}
+
+/* ENGINEERING BADGE */
+.badge{
+  display:inline-block;
+  padding:4px 10px;
+  font-size:11px;
+  background:rgba(0,212,255,0.15);
+  border:1px solid rgba(0,212,255,0.4);
+  border-radius:20px;
+  margin-top:8px;
+  color:#00d4ff;
+}
+
+/* =======================
+   MODAL (CASE STUDY)
+======================= */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.modal-box {
+  background: #0b1020;
+  padding: 25px;
+  border-radius: 15px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 0 30px rgba(0,212,255,0.3);
+}
+
+.modal-box h3 {
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.modal-box p {
+  opacity: 0.85;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.close-btn {
+  margin-top: 15px;
+  padding: 10px 15px;
+  border: none;
+  background: var(--accent);
+  color: #000;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* =======================
+   WORKFLOW DIAGRAM
+======================= */
+.workflow {
+  margin-top: 15px;
+}
+
+.workflow-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.step {
+  flex: 1;
+  min-width: 90px;
+  padding: 8px;
+  text-align: center;
+  border-radius: 8px;
+  background: rgba(0,212,255,0.1);
+  border: 1px solid rgba(0,212,255,0.3);
+  cursor: pointer;
+  font-size: 12px;
+  transition: 0.3s;
+}
+
+.step:hover {
+  background: var(--accent);
+  color: #000;
+}
+
+.step.active {
+  background: var(--accent);
+  color: #000;
+}
+
+.workflow-desc {
+  margin-top: 10px;
+  font-size: 13px;
+  opacity: 0.8;
+  min-height: 40px;
+}
+
 </style>
 </head>
 
 <body>
 
+<div class="bg-glow"></div>
+<canvas id="bg"></canvas>
+
 <nav>
-  <a href="#about">About</a>
-  <a href="#projects">Projects</a>
-  <a href="#skills">Skills</a>
-  <a href="#contact">Contact</a>
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#projects">Projects</a>
+<a href="#skills">Skills</a>
+<a href="#contact">Contact</a>
 </nav>
 
-<div class="hero">
-  <h1>Mitch</h1>
-  <p>Automation Engineer • Simulation Specialist • Excel VBA Developer</p>
+<header id="home">
 
-  <a class="btn" href="resume.pdf" download>Download Resume</a>
+  <img src="profile.jpg" class="profile">
+
+  <h1 class="glow">Mitch</h1>
+
+  <div class="type" id="type"></div>
+
+  <div class="role" id="role">Engineering Simulation Specialist</div>
+
+  <div class="line"></div>
+
+  <a class="btn" href="resume.pdf" download>Download CV</a>
+
+</header>
+
+<!-- ABOUT -->
+<section id="about">
+<h2>About</h2>
+<p>I work as a Product Development Mesh Technician, supporting engineers in mesh generation, simulation automation, while also developing modern web solutions.</p>
+
+<div class="card" style="margin-top:20px;">
+<strong>Engineering Stack</strong>
+<p style="margin-top:10px;opacity:0.8;">
+ABAQUS • HyperMesh • TCL Scripting • Excel VBA • Mesh Optimization • CAD Preprocessing
+</p>
+</div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+<h2>Projects</h2>
+
+<div class="grid">
+
+<!-- ================= EXCEL VBA ================= -->
+<div class="card" onclick="openModal(
+'Excel VBA Engineering Automation System',
+'Problem: Manual reporting and data consolidation were time-consuming and error-prone in engineering workflow.',
+'Solution: Developed Excel VBA macros to automate data extraction, formatting, and report generation for engineering datasets.',
+'Tools: Excel VBA, Data Structuring, Automation Logic, Engineering Reports',
+'Impact: Reduced reporting time by ~60% and minimized human input errors in documentation.',
+'excel'
+)">
+<strong>Excel VBA Engineering Automation</strong>
+<p style="opacity:0.8;margin-top:8px;">
+Automates engineering reports and data processing workflows.
+</p>
+<span class="badge">Automation / Data</span>
 </div>
 
-<section id="about">
-  <h2>About</h2>
-  <p>
-    I build automation systems, engineering simulations, and data-driven tools that improve efficiency and reduce manual work.
-  </p>
+<!-- ================= ABAQUS FEA ================= -->
+<div class="card" onclick="openModal(
+'ABAQUS FEA Mesh & Simulation Workflow',
+'Problem: Manual meshing and preprocessing caused inconsistencies and long setup time for simulations.',
+'Solution: Created automated meshing workflow using HyperMesh and TCL scripting integrated with ABAQUS setup process.',
+'Tools: ABAQUS, HyperMesh, TCL Scripting, CAE Preprocessing, Mesh Optimization',
+'Impact: Reduced preprocessing time by ~70% and improved mesh consistency for simulation accuracy.',
+'fea'
+)">
+<strong>ABAQUS FEA Workflow Automation</strong>
+<p style="opacity:0.8;margin-top:8px;">
+Optimized meshing and simulation preparation workflow.
+</p>
+<span class="badge">FEA / Simulation</span>
+</div>
+
+<!-- ================= PORTFOLIO ================= -->
+<div class="card" onclick="openModal(
+'Cinematic Engineering Portfolio System',
+'Problem: Engineers lack a structured way to present technical skills and simulation work online.',
+'Solution: Built a responsive cinematic portfolio using HTML, CSS, and JavaScript with animation and interactive UI.',
+'Tools: HTML, CSS, JavaScript, UI/UX Design, Animation System',
+'Impact: Improved professional visibility and created structured engineering branding platform.',
+'web'
+)">
+<strong>Engineering Portfolio System</strong>
+<p style="opacity:0.8;margin-top:8px;">
+Interactive cinematic portfolio for engineering presentation.
+</p>
+<span class="badge">Web / UI</span>
+</div>
+
+</div>
 </section>
 
-<section id="projects">
-  <h2>Projects</h2>
-
-  <div class="project">
-    <h3>Excel Automation System</h3>
-    <p>Automated reporting and email workflows using VBA.</p>
-  </div>
-
-  <div class="project">
-    <h3>Job Tracking Dashboard</h3>
-    <p>Dynamic system for workload monitoring and reporting.</p>
-  </div>
-
-  <div class="project">
-    <h3>ABAQUS Simulation Optimization</h3>
-    <p>Mechanical stress analysis and performance improvement study.</p>
-  </div>
-
-  <div class="project">
-    <h3>HyperMesh Automation</h3>
-    <p>TCL-based automation for meshing and weld creation.</p>
-  </div>
-
-</section>
-
+<!-- SKILLS -->
 <section id="skills">
-  <h2>Skills</h2>
-  <div class="skills">
-    <span>Excel VBA</span>
-    <span>Automation</span>
-    <span>ABAQUS</span>
-    <span>HyperMesh</span>
-    <span>TCL Scripting</span>
-    <span>Data Analysis</span>
-  </div>
+<h2>Skills</h2>
+
+<div class="card">
+<div class="skill-top">
+<span>Excel VBA</span><span>90%</span>
+</div>
+<div class="bar"><div class="fill" data="90%"></div></div>
+</div>
+
+<div class="card">
+<div class="skill-top">
+<span>FEA</span><span>85%</span>
+</div>
+<div class="bar"><div class="fill" data="85%"></div></div>
+</div>
+
+<div class="card">
+<div class="skill-top">
+<span>Web Dev</span><span>75%</span>
+</div>
+<div class="bar"><div class="fill" data="75%"></div></div>
+</div>
+
 </section>
 
+<!-- IMPACT SECTION -->
+<section>
+<h2>Engineering Impact</h2>
+
+<div class="grid">
+
+<div class="card">
+⚙️ Automation Efficiency
+<p style="margin-top:10px;opacity:0.8;">
+Improved engineering workflow through VBA and scripting automation.
+</p>
+</div>
+
+<div class="card">
+⏱️ Time Optimization
+<p style="margin-top:10px;opacity:0.8;">
+Reduced meshing and preprocessing time significantly.
+</p>
+</div>
+
+<div class="card">
+📉 Error Reduction
+<p style="margin-top:10px;opacity:0.8;">
+Minimized human errors in simulation setup and reporting.
+</p>
+</div>
+
+</div>
+</section>
+
+<!-- CONTACT -->
 <section id="contact">
-  <h2>Contact</h2>
-  <p>Email: your@email.com</p>
+<h2>Contact</h2>
+
+<div class="grid">
+
+<div class="card">
+📧 Email
+<p id="emailText" style="word-break: break-word;">
+consebidomichelle.wrk@gmail.com
+</p>
+
+<button class="btn" onclick="copyEmail()">📋 Copy Email</button>
+</div>
+
+<div class="card">
+📱 Phone
+<p>+63 970 146 1556</p>
+
+<a class="btn" 
+   href="https://wa.me/639701461556" 
+   target="_blank"
+   style="display:inline-block; margin-top:10px; text-decoration:none; text-align:center;">
+💬 WhatsApp Me
+</a>
+</div>
+
+<div class="card">
+📍 Location
+<p>San Juan, Batangas, Philippines</p>
+</div>
+
+<div class="card">
+💼 LinkedIn
+<p>Connect with me</p>
+
+<a class="btn" href="https://www.linkedin.com/in/michelle-consebido-794514326" target="_blank"
+style="display:inline-block; margin-top:10px; text-decoration:none; text-align:center;">
+🔗 View LinkedIn Profile
+</a>
+</div>
+
+</div>
 </section>
 
-<footer>
-  © 2026 Mitch
-</footer>
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <h3 id="m-title"></h3>
+    <p id="m-problem"></p>
+    <p id="m-solution"></p>
+    <p id="m-tools"></p>
+    <p id="m-impact"></p>
+
+<!-- 🔥 DYNAMIC WORKFLOW (UPGRADED) -->
+<div class="workflow">
+  <strong>Workflow</strong>
+
+  <div class="workflow-steps" id="workflowSteps"></div>
+
+  <div class="workflow-desc" id="workflowDesc">
+    Click a step to see details.
+  </div>
+</div>
+        <button class="close-btn" onclick="closeModal()">Close</button>
+
+  </div>
+</div>
+
+<script>
+
+/* TYPEWRITER */
+const text = "Engineering Simulation • Automation • Web Development";
+let i = 0;
+
+function type(){
+  if(i < text.length){
+    document.getElementById("type").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(type, 30);
+  }
+}
+type();
+
+/* ROLE SWITCH */
+const roles = [
+  "Engineering Simulation Specialist",
+  "Mesh Automation Developer",
+  "FEA Workflow Engineer",
+  "Excel VBA Automation Developer",
+  "Product Development Support Engineer"
+];
+
+let r = 0;
+setInterval(()=>{
+  r = (r + 1) % roles.length;
+  document.getElementById("role").style.opacity = 0;
+
+  setTimeout(()=>{
+    document.getElementById("role").innerText = roles[r];
+    document.getElementById("role").style.opacity = 1;
+  },300);
+
+},2500);
+
+/* MODAL */
+function openModal(title, problem, solution, tools, impact){
+  document.getElementById("modal").style.display = "flex";
+  document.getElementById("m-title").innerText = title;
+  document.getElementById("m-problem").innerText = problem;
+  document.getElementById("m-solution").innerText = solution;
+  document.getElementById("m-tools").innerText = tools;
+  document.getElementById("m-impact").innerText = impact;
+}
+
+function closeModal(){
+  document.getElementById("modal").style.display = "none";
+}
+
+
+/* SCROLL */
+const sections = document.querySelectorAll("section");
+
+window.addEventListener("scroll", ()=>{
+sections.forEach(s=>{
+if(s.getBoundingClientRect().top < window.innerHeight-100){
+s.classList.add("show");
+}
+});
+});
+
+/* SKILLS */
+let done=false;
+window.addEventListener("scroll",()=>{
+if(!done){
+document.querySelectorAll(".fill").forEach(el=>{
+el.style.width = el.getAttribute("data");
+});
+done=true;
+}
+});
+
+
+/* =======================
+   PROJECT WORKFLOW DATA
+======================= */
+
+const workflows = {
+  excel: [
+    "Data Input: Collect and structure engineering data in Excel.",
+    "Macro Processing: VBA scripts automate calculations and formatting.",
+    "Logic Execution: Conditional rules process engineering datasets.",
+    "Output Report: Automated generation of engineering reports.",
+    "Validation: Cross-check results for accuracy and consistency."
+  ],
+
+  fea: [
+    "CAD Preparation: Import and clean geometry for simulation.",
+    "Mesh Generation: Create finite element mesh using HyperMesh.",
+    "Quality Check: Verify aspect ratio, skewness, and element quality.",
+    "Solver Setup: Apply loads, constraints, and material properties.",
+    "Results: Analyze stress, deformation, and simulation output."
+  ],
+
+  web: [
+    "UI Design: Plan layout and visual structure of portfolio.",
+    "HTML/CSS Build: Create responsive interface components.",
+    "Animation Layer: Add cinematic motion and transitions.",
+    "Interaction Logic: JavaScript controls dynamic behavior.",
+    "Deployment: Publish and optimize for web performance."
+  ]
+};
+
+let currentWorkflow = [];
+
+/* =======================
+   OPEN MODAL + TYPE
+======================= */
+
+function openModal(title, problem, solution, tools, impact, type = "fea") {
+  document.getElementById("modal").style.display = "flex";
+
+  document.getElementById("m-title").innerText = title;
+  document.getElementById("m-problem").innerText = problem;
+  document.getElementById("m-solution").innerText = solution;
+  document.getElementById("m-tools").innerText = tools;
+  document.getElementById("m-impact").innerText = impact;
+
+  loadWorkflow(type);
+}
+
+/* =======================
+   LOAD WORKFLOW UI
+======================= */
+
+function loadWorkflow(type) {
+  currentWorkflow = workflows[type];
+
+  const labels = {
+    excel: ["Data", "Macro", "Report", "Validation"],
+    fea: ["CAD", "Mesh", "Quality", "Solver", "Results"],
+    web: ["UI", "Code", "Animation", "Deploy", "Optimize"]
+  };
+
+  const container = document.getElementById("workflowSteps");
+  container.innerHTML = "";
+
+  labels[type].forEach((label, index) => {
+    const div = document.createElement("div");
+    div.className = "step";
+    div.innerText = label;   // 👈 THIS is the fix
+
+    div.onclick = () => {
+      document.getElementById("workflowDesc").innerText =
+        currentWorkflow[index];
+
+      document.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
+      div.classList.add("active");
+    };
+
+    container.appendChild(div);
+  });
+
+  document.getElementById("workflowDesc").innerText =
+    "Click a step to see details.";
+}
+
+/* CLOSE MODAL */
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+/* PARTICLES */
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+let mouse = {x:null,y:null,radius:140};
+
+window.addEventListener("mousemove", e=>{
+mouse.x = e.x;
+mouse.y = e.y;
+});
+
+class Particle {
+  constructor(){
+    this.x = Math.random()*canvas.width;
+    this.y = Math.random()*canvas.height;
+    this.size = Math.random()*2;
+    this.speedX = (Math.random()-0.5)*0.4;
+    this.speedY = (Math.random()-0.5)*0.4;
+  }
+
+  update(){
+    this.x += this.speedX;
+    this.y += this.speedY;
+
+    if(this.x>canvas.width) this.x=0;
+    if(this.y>canvas.height) this.y=0;
+
+    this.draw();
+  }
+
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fillStyle="rgba(0,212,255,0.6)";
+    ctx.fill();
+  }
+}
+
+function init(){
+for(let i=0;i<80;i++) particles.push(new Particle());
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+particles.forEach(p=>p.update());
+requestAnimationFrame(animate);
+}
+
+init();
+animate();
+
+</script>
 
 </body>
 </html>
